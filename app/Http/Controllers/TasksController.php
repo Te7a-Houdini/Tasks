@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TaskRequest;
 use App\Task;
 use Illuminate\Http\Request;
 
@@ -59,7 +60,9 @@ class TasksController extends Controller
      */
     public function edit($id)
     {
-        //
+        $task = Task::findOrFail($id);
+
+        return view('tasks.edit',compact('task'));
     }
 
     /**
@@ -69,9 +72,11 @@ class TasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TaskRequest $request, $id)
     {
-        //
+        Task::where('id',$id)->update($request->only(['name','description']));
+
+        return redirect()->route('tasks.index')->with(['success' => true , 'message' => 'Task Updated Successfully']);
     }
 
     /**
