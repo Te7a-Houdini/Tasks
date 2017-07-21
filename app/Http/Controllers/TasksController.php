@@ -53,7 +53,7 @@ class TasksController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect()->route('tasks.index');
     }
 
     /**
@@ -91,6 +91,9 @@ class TasksController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Task::where('id',$id)->delete();
+
+        return redirect()->route('tasks.index')->with(['success' => true , 'message' => 'Task Deleted Successfully']);
+
     }
 }
