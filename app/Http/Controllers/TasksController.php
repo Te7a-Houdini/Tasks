@@ -27,18 +27,22 @@ class TasksController extends Controller
      */
     public function create()
     {
-        //
+        $task = new Task;
+
+        return view('tasks.create',compact('task'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\TaskRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TaskRequest $request)
     {
-        //
+        Task::create($request->only(['name','description']));
+
+        return redirect()->route('tasks.index')->with(['success' => true , 'message' => 'Task Created Successfully']);
     }
 
     /**
@@ -68,7 +72,7 @@ class TasksController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\TaskRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
