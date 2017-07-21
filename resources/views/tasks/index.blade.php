@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    @include('partials.success')
 <div class="container">
     <div class="row">
 
