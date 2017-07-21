@@ -21,6 +21,11 @@ Route::group(['middleware' => ['guest']],function(){
     Route::post('/login','Auth\LoginController@login');
 });
 
+Route::group(['middleware' => ['auth']],function(){
+
+    Route::resource('tasks','TasksController');
+});
+
 Route::post('logout','Auth\LoginController@logout')->name('logout');
 
 
